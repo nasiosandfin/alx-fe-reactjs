@@ -1,8 +1,7 @@
+import WelcomeMessage from './components/WelcomeMessage';
+
 // App.jsx
 import React from 'react';
-import Header from './Header';
-import MainContent from './MainContent';
-import Footer from './Footer';
 import WelcomeMessage from './components/WelcomeMessage';
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
@@ -15,13 +14,13 @@ function App() {
   return (
     <>
       <div>
+        <WelcomeMessage />
       <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
-        <WelcomeMessage />
       </div>
       <h1>Vite + React</h1>
       <div className="card">
