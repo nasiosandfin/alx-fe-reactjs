@@ -2,8 +2,8 @@ import { create } from 'zustand';
 
 export const useRecipeStore = create((set) => ({
   recipes: [],
-  searchTerm: '',
-  filteredRecipes: [],
+  favorites: [],
+  recommendations: [],
   addRecipe: (newRecipe) =>
     set((state) => ({ recipes: [...state.recipes, newRecipe] })),
   updateRecipe: (updatedRecipe) =>
@@ -16,11 +16,20 @@ export const useRecipeStore = create((set) => ({
     set((state) => ({
       recipes: state.recipes.filter((r) => r.id !== id),
     })),
-  setSearchTerm: (term) => set({ searchTerm: term }),
-  filterRecipes: () =>
+  addFavorite: (recipeId) =>
+    set((state) => ({ favorites: [...state.favorites, recipeId] })),
+  removeFavorite: (recipeId) =>
     set((state) => ({
-      filteredRecipes: state.recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(state.searchTerm.toLowerCase())
-      ),
+      favorites: state.favorites.filter((id) => id !== recipeId),
     })),
+  generateRecommendations: () =>
+    set((state) => {
+      // Simple mock: recommend recipes that share IDs with favorites
+      const recommended = state.recipes.filter((recipe) =>
+        state.favorites.includes(recipe.id)
+      );
+      return { recommendations: recommended };
+    }),
 }));
+
+
