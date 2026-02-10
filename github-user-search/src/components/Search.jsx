@@ -83,3 +83,27 @@ export default function Search() {
     </div>
   );
 }
+
+
+// Search.jsx
+import { searchUsers as fetchUserData } from "../services/githubService";
+
+export default function Search() {
+  // ...
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(false);
+    setResults([]);
+
+    try {
+      const data = await fetchUserData(username, location, minRepos);
+      setResults(data.items);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+  // ...
+}
