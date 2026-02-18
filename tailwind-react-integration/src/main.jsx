@@ -8,3 +8,8 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+// src/main.jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import './index.css'   // <- this import must exist
+import App from './App'
