@@ -34,10 +34,10 @@ function App() {
 
 
 
-
-import React from "react";
-import RegistrationForm from "./components/RegistrationForm";
-import FormikForm from "./components/formikForm";
+// src/App.jsx
+import React from 'react';
+import RegistrationForm from './components/RegistrationForm';
+import FormikForm from './components/formikForm'; // update path if you rename file to .jsx
 
 function App() {
   return (
@@ -50,8 +50,5 @@ function App() {
   );
 }
 
-
-
-import FormikForm from './components/formikForm';
-function App(){ return <div><FormikForm /></div>; }
 export default App;
+

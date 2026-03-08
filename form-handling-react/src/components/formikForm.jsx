@@ -27,7 +27,7 @@ export default function FormikForm() {
           setStatus('Registration successful');
           resetForm();
         } catch (err) {
-          setStatus(err.message);
+          setStatus(err.message || 'Registration failed');
         } finally {
           setSubmitting(false);
         }
