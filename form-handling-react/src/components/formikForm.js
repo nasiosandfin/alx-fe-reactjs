@@ -1,4 +1,4 @@
-// src/components/formikForm.js
+// src/components/formikForm.jsx
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -36,19 +36,19 @@ export default function FormikForm() {
       {({ isSubmitting, status }) => (
         <Form noValidate>
           <div>
-            <label className="label">Username</label>
+            <label>Username</label>
             <Field name="username" />
             <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
           </div>
 
           <div>
-            <label className="label">Email</label>
+            <label>Email</label>
             <Field name="email" type="email" />
             <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
           </div>
 
           <div>
-            <label className="label">Password</label>
+            <label>Password</label>
             <Field name="password" type="password" />
             <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
           </div>
