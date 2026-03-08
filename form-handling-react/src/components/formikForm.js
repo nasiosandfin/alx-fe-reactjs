@@ -1,65 +1,84 @@
-// src/components/formikForm.jsx
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
-const SignupSchema = Yup.object().shape({
-  username: Yup.string().trim().required('Username required'),
-  email: Yup.string().email('Invalid email').required('Email required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password required'),
-});
+function FormikForm() {
+  // Step 1: Define validation schema
+  const validationSchema = Yup.object({
+    username: Yup.string().required("Username is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+    password: Yup.string()
+      .min(6, "Password must be at least 6 characters")
+      .required("Password is required"),
+  });
 
-export default function FormikForm() {
+  // Step 2: Handle submission
+  const handleSubmit = (values, { resetForm }) => {
+    console.log("Form submitted:", values);
+    resetForm();
+  };
+
   return (
-    <Formik
-      initialValues={{ username: '', email: '', password: '' }}
-      validationSchema={SignupSchema}
-      onSubmit={async (values, { setSubmitting, resetForm, setStatus }) => {
-        setStatus(null);
-        try {
-          const res = await fetch('https://reqres.in/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(values),
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.error || 'Registration failed');
-          setStatus('Registration successful');
-          resetForm();
-        } catch (err) {
-          setStatus(err.message || 'Registration failed');
-        } finally {
-          setSubmitting(false);
-        }
-      }}
-    >
-      {({ isSubmitting, status }) => (
-        <Form noValidate>
+    <div className="max-w-md mx-auto mt-10 p-6 bg-white shadow rounded">
+      <h1 className="text-2xl font-bold mb-4 text-center">Register</h1>
+
+      <Formik
+        initialValues={{ username: "", email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        <Form className="space-y-4">
           <div>
-            <label>Username</label>
-            <Field name="username" />
-            <ErrorMessage name="username" component="div" style={{ color: 'red' }} />
+            <label className="block mb-1 font-semibold">Username</label>
+            <Field
+              name="username"
+              type="text"
+              className="w-full border rounded px-3 py-2"
+            />
+            <ErrorMessage
+              name="username"
+              component="div"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div>
-            <label>Email</label>
-            <Field name="email" type="email" />
-            <ErrorMessage name="email" component="div" style={{ color: 'red' }} />
+            <label className="block mb-1 font-semibold">Email</label>
+            <Field
+              name="email"
+              type="email"
+              className="w-full border rounded px-3 py-2"
+            />
+            <ErrorMessage
+              name="email"
+              component="div"
+              className="text-red-500 text-sm"
+            />
           </div>
 
           <div>
-            <label>Password</label>
-            <Field name="password" type="password" />
-            <ErrorMessage name="password" component="div" style={{ color: 'red' }} />
+            <label className="block mb-1 font-semibold">Password</label>
+            <Field
+              name="password"
+              type="password"
+              className="w-full border rounded px-3 py-2"
+            />
+            <ErrorMessage
+              name="password"
+              component="div"
+              className="text-red-500 text-sm"
+            />
           </div>
 
-          <button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? 'Registering...' : 'Register'}
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          >
+            Register
           </button>
-
-          {status && <div style={{ marginTop: 12 }}>{status}</div>}
         </Form>
-      )}
-    </Formik>
+      </Formik>
+    </div>
   );
 }
+
+export default FormikForm;
