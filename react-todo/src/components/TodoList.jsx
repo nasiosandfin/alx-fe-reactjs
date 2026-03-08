@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function TodoList() {
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a Todo App", completed: true },
+    { id: 2, text: "Build Todo", completed: true },
   ]);
   const [newTodo, setNewTodo] = useState("");
 
@@ -31,6 +31,7 @@ function TodoList() {
       <h2>Todo List</h2>
       <form onSubmit={addTodo}>
         <input
+          data-testid="todo-input"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add new todo"
@@ -41,6 +42,7 @@ function TodoList() {
         {todos.map((todo) => (
           <li
             key={todo.id}
+            data-testid={`todo-${todo.id}`}
             onClick={() => toggleTodo(todo.id)}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
@@ -48,7 +50,13 @@ function TodoList() {
             }}
           >
             {todo.text}
-            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id); }}>
+            <button
+              data-testid={`delete-${todo.id}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                deleteTodo(todo.id);
+              }}
+            >
               Delete
             </button>
           </li>
